@@ -32,8 +32,6 @@
 - [🚩 Challenges We Faced](#-challenges-we-faced)
 - [🧠 What We Learned](#-what-we-learned)
 - [🚀 Installation](#-installation)
-- [💻 Usage](#-usage)
-- [🎮 Demo](#-demo)
 - [🔮 What's Next](#-whats-next)
 - [👥 Team](#-team)
 - [📄 License](#-license)
