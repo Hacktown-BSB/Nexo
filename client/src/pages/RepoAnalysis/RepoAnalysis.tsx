@@ -1197,7 +1197,7 @@ export function RepoAnalysis() {
                     {learningState.isLoading && (
                       <div className={styles.loadingState}>
                         <div className={styles.spinner}></div>
-                        <p>Gerando recursos de aprendizado com IA...</p>
+                        <p>Generating learning resources with AI...</p>
                       </div>
                     )}
 
