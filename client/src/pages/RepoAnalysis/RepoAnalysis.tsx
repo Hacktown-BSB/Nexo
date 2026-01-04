@@ -21,6 +21,7 @@ import {
   cleanExpiredCache,
 } from "../../services/cacheService";
 import { useAuth } from "../../hooks";
+import { ChatBot } from "../../components/sections";
 
 // Type for API directory structure
 interface DirectoryStructure {
@@ -597,11 +598,38 @@ export function RepoAnalysis() {
     }
   };
 
+  // Prepare context for ChatBot
+  const chatContext = useMemo(() => {
+    if (!analysisState.data) {
+      return { ...MOCK_REPO_DATA, ...MOCK_ANALYSIS };
+    }
+
+    const data = analysisState.data;
+    const repoInfo = data.repository?.info;
+
+    const techStack = Object.keys(languages).map((lang) => ({
+      name: lang,
+      percentage: 0,
+    }));
+
+    return {
+      name: repoInfo?.full_name || repoInfo?.name || "Unknown Repository",
+      description: repoInfo?.description || "",
+      language: repoInfo?.language || Object.keys(languages)[0] || "",
+      techStack: techStack,
+      fileTree: fileTreeData || [],
+      summary: data.overview || "",
+    };
+  }, [analysisState.data, languages, fileTreeData]);
+
   return (
     <div className={styles.page}>
       <Navbar />
 
       <main className={styles.main}>
+        {/* ChatBot Integration */}
+        <ChatBot repoContext={chatContext} />
+
         {/* Loading State */}
         {analysisState.isLoading && (
           <section className={styles.loadingSection}>
@@ -627,6 +655,7 @@ export function RepoAnalysis() {
                 <p>{analysisState.error}</p>
                 <Link to='/comecar' className={styles.errorButton}>
                   ← Go back and try again
+
                 </Link>
               </div>
             </Container>
